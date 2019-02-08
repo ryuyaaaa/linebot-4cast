@@ -101,13 +101,15 @@ const lineUserId = process.env.LINE_USER_ID;
             'Authorization': "Bearer " + channelAccessToken
         },
         json: true,
-        body: [{
+        body: {
             'to': lineUserId,
-            'messages': {
-                'type': 'text',
-                'text': left_num + '個予想しといたで'
-            }           
-        }]
+            'messages': [
+                {
+                    'type': 'text',
+                    'text': left_num + '個予想しといたで'
+                }           
+            ]
+        }
     };
 
     // LINE APIにPOST
