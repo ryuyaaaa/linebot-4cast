@@ -81,23 +81,11 @@ console.log("address = " + address + ", password = " + password);
             }
         };   
         
-        // TravisCIにpostして発火
+        // LINE APIにPOST
         request.post(options, function(error, response, body) {
             console.log(response.statusCode);
-            if (!error && response.statusCode >= 200) {
-                console.log(body);
-                events_processed.push(bot.replyMessage(event.replyToken, {
-                    type: "text",
-                    text: "しゃあないなちょっと待っとけよ"
-                }));
-            } else {
-                events_processed.push(bot.replyMessage(event.replyToken, {
-                    type: "text",
-                    text: "わりぃ、今やる気ないわ"
-                }));
-            }
         });
-        
+
     } else {
 
         //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
