@@ -5,7 +5,7 @@ const request = require('request');
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
 const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
-const userId = process.env.LINE_USER_ID;
+const lineUserId = process.env.LINE_USER_ID;
 
 (async () => {
 
@@ -101,13 +101,13 @@ const userId = process.env.LINE_USER_ID;
             'Authorization': "Bearer " + channelAccessToken
         },
         json: true,
-        body: {
-            'to': userId,
+        body: [{
+            'to': lineUserId,
             'messages': {
                 'type': 'text',
                 'text': left_num + '個予想しといたで'
             }           
-        }
+        }]
     };
 
     // LINE APIにPOST
