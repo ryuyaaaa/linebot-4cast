@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ryuyasamaaaa/linebot-4cast/issues"
   },
-  "homepage": "https://github.com/ryuyasamaaaa/linebot-4cast#readme"
+  "homepage": "https://github.com/ryuyasamaaaa/linebot-4cast#readme",
+  "dependencies": {
+    "puppeteer": "^1.12.2"
+  }
 }
