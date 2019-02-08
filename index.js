@@ -114,7 +114,7 @@ const lineUserId = process.env.LINE_USER_ID;
 
     // LINE APIにPOST
     request.post(options, function(error, response, body) {
-        console.log(response);
+        console.log(response.statusCode);
     });
 
     
