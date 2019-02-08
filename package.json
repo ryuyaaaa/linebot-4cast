@@ -4,7 +4,8 @@
   "description": "4cast",
   "main": "index.js",
   "scripts": {
-    "test": "index.js"
+    "package": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
