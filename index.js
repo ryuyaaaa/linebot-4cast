@@ -3,6 +3,8 @@ const devices = require('puppeteer/DeviceDescriptors');
 
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
+const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
+const userId = process.env.LINE_USER_ID;
 
 (async () => {
 
@@ -89,6 +91,29 @@ const password = process.env.PASSWORD;
             }
         }
     }
+
+    var options = {
+        url: 'https://api.line.me/v2/bot/message/push',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + channelAccessToken
+        },
+        json: true,
+        body: {
+            'to': userId,
+            'messages': {
+                'type': 'text',
+                'text': left_num + '個予想しといたで'
+            }           
+        }
+    };
+
+    // LINE APIにPOST
+    request.post(options, function(error, response, body) {
+        console.log(response);
+    });
+
     
     await browser.close();
 })();
