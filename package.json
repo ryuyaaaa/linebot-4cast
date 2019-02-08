@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ryuyasamaaaa/linebot-4cast#readme",
   "dependencies": {
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.12.2",
+    "request": "^2.88.0"
   }
 }

@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
+const request = require('request');
 
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
