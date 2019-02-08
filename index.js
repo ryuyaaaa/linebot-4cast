@@ -1,8 +1,12 @@
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 
+console.log("debug1");
+
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
+
+console.log("address = " + address + ", password = " + password);
 
 (async () => {
     const browser = await puppeteer.launch({headless: false});
