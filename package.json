@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "4cast",
   "main": "index.js",
+  "scripts": {
+    "test": "index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ryuyasamaaaa/linebot-4cast.git"
