@@ -5,13 +5,13 @@ console.log("debug1");
 
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
-const flag = process.env.FLAG;
 const userId = process.env.LINE_USER_ID;
 const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
 
 console.log("address = " + address + ", password = " + password);
 
 (async () => {
+    const flag = process.env.FLAG;
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
     await page.emulate(devices['iPhone X']);
