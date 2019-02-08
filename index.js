@@ -5,6 +5,9 @@ console.log("debug1");
 
 const address = process.env.MAIL_ADDRESS;
 const password = process.env.PASSWORD;
+const flag = process.env.FLAG;
+const userId = process.env.LINE_USER_ID;
+const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
 
 console.log("address = " + address + ", password = " + password);
 
@@ -46,52 +49,98 @@ console.log("address = " + address + ", password = " + password);
 
     await page.waitFor(3000);
 
+    var link_point = await page.$eval('.num.voting_points', item => {
+        return Number(item.textContent.trim());
+    });
+
     // 未参加をクリック
     var left_num = await page.$eval('.my_report li:nth-child(3) .num', item => {
         return Number(item.textContent.trim());
     });
-
+    console.log(link_point);
     console.log(left_num);
 
-    //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
-    await page.click('.my_report li:nth-child(3) .num');
+    if (flag == 1) {
+        var x = 1;
+    } else if (frag == 2) {
 
-    await page.waitFor(3000);
+        var options = {
+            url: "https://api.line.me/v2/bot/message/push",
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + channelAccessToken
+            },
+            json: true,
+            body: {
+                'to': userId,
+                'messages': {
+                    'type': 'text',
+                    'text': link_point
+                }
+            }
+        };   
+        
+        // TravisCIにpostして発火
+        request.post(options, function(error, response, body) {
+            console.log(response.statusCode);
+            if (!error && response.statusCode >= 200) {
+                console.log(body);
+                events_processed.push(bot.replyMessage(event.replyToken, {
+                    type: "text",
+                    text: "しゃあないなちょっと待っとけよ"
+                }));
+            } else {
+                events_processed.push(bot.replyMessage(event.replyToken, {
+                    type: "text",
+                    text: "わりぃ、今やる気ないわ"
+                }));
+            }
+        });
+        
+    } else {
 
-    if (left_num != 0) {
-
-        // 一番上のトピックをクリック
-        await page.evaluate(()=>document.querySelector('ul li').click());
-        //await page.click('ul li');
+        //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
+        await page.click('.my_report li:nth-child(3) .num');
 
         await page.waitFor(3000);
 
-        // 注意書き的なやつタップ
-        //await page.evaluate(()=>document.querySelector('.quiz_gest_wrap').tap());
-        await page.tap('.quiz_gest_wrap');
+        if (left_num != 0) {
 
-        for (var i = 0; i < left_num; i++) {
-            
-            /* ---予想ロジックの実装--- */
-            var choice_num = choice_num = await Math.floor(Math.random() * 3);
-            console.log(choice_num);
+            // 一番上のトピックをクリック
+            await page.evaluate(()=>document.querySelector('ul li').click());
+            //await page.click('ul li');
 
-            await page.waitFor(1000);            
+            await page.waitFor(3000);
 
-            // 選択肢をクリック
-            await page.evaluate((choice_num)=>document.querySelector('ul li:nth-child(' + (choice_num+1).toString() + ') a.bar div.quiz_item').click(), choice_num);
-            //await page.click('ul li:nth-child(' + (random+1).toString() + ') a.bar div.quiz_item');
+            // 注意書き的なやつタップ
+            //await page.evaluate(()=>document.querySelector('.quiz_gest_wrap').tap());
+            await page.tap('.quiz_gest_wrap');
 
-            // OKをクリック
-            await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-            await page.waitFor(1000);  
+            for (var i = 0; i < left_num; i++) {
+                
+                /* ---予想ロジックの実装--- */
+                var choice_num = choice_num = await Math.floor(Math.random() * 3);
+                console.log(choice_num);
 
-            if (i != left_num - 1) {
-                // 次の予想へ
-                await page.evaluate(()=>document.querySelector('a.btn_quiz_next.fadeOut').click());
-                await page.waitFor(1000); 
+                await page.waitFor(1000);            
+
+                // 選択肢をクリック
+                await page.evaluate((choice_num)=>document.querySelector('ul li:nth-child(' + (choice_num+1).toString() + ') a.bar div.quiz_item').click(), choice_num);
+                //await page.click('ul li:nth-child(' + (random+1).toString() + ') a.bar div.quiz_item');
+
+                // OKをクリック
+                await page.evaluate(()=>document.querySelector('button.btn.type1').click());
+                await page.waitFor(1000);  
+
+                if (i != left_num - 1) {
+                    // 次の予想へ
+                    await page.evaluate(()=>document.querySelector('a.btn_quiz_next.fadeOut').click());
+                    await page.waitFor(1000); 
+                }
             }
         }
+
     }
     
     await browser.close();
