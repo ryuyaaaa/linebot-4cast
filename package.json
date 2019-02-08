@@ -1,0 +1,19 @@
+{
+  "name": "4cast",
+  "version": "1.0.0",
+  "description": "4cast",
+  "main": "index.js",
+  "scripts": {
+    "test": "test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryuyasamaaaa/linebot-4cast.git"
+  },
+  "author": "Ryuya Nishino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryuyasamaaaa/linebot-4cast/issues"
+  },
+  "homepage": "https://github.com/ryuyasamaaaa/linebot-4cast#readme"
+}
