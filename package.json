@@ -4,7 +4,7 @@
   "description": "4cast",
   "main": "index.js",
   "scripts": {
-    "package": "node index.js",
+    "deploy": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
