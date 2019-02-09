@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 const request = require('request');
+const crypt = require('./util/crypt');
 
-const address = process.env.MAIL_ADDRESS;
-const password = process.env.PASSWORD;
+const address = crypt.decrypt(process.env.MAIL_ADDRESS);
+const password = crypt.decrypt(process.env.PASSWORD);
 const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
 const lineUserId = process.env.LINE_USER_ID;
 
