@@ -79,12 +79,24 @@ const lineUserId = process.env.LINE_USER_ID;
             await page.waitFor(1000);            
 
             // 選択肢をクリック
-            await page.evaluate((num)=>document.querySelector('ul li:nth-child(' + (num+1).toString() + ') a.bar div.quiz_item').click(), num);
+            var choice = await page.evaluate((selector) => {
+                return document.querySelector('ul li:nth-child(' + (selector+1).toString() + ') a.bar div.quiz_item');
+            }, num);
+
+            if (choice != null) {
+                await page.click(choice);
+                
+                // OKをクリック
+                await page.evaluate(()=>document.querySelector('button.btn.type1').click());
+                await page.waitFor(1000); 
+            }
+
+            //await page.evaluate((num)=>document.querySelector('ul li:nth-child(' + (num+1).toString() + ') a.bar div.quiz_item').click(), num);
             //await page.click('ul li:nth-child(' + (random+1).toString() + ') a.bar div.quiz_item');
 
             // OKをクリック
-            await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-            await page.waitFor(1000);  
+            //await page.evaluate(()=>document.querySelector('button.btn.type1').click());
+            //await page.waitFor(1000);  
 
             if (i != left_num - 1) {
                 // 次の予想へ
