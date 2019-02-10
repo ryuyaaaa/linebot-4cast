@@ -49,12 +49,12 @@ const lineUserId = process.env.LINE_USER_ID;
 
     // 未参加をクリック
     var left_num = await page.$eval('.left .num', item => {
-        return Number(item.textContent.trim());
+        return Number(item.textContent.trim().replace(/,/g, ''));
     });
     console.log(left_num);
 
     //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
-    await page.click('.my_report li:nth-child(3) .num');
+    await page.click('.left .num');
 
     await page.waitFor(3000);
 
@@ -70,7 +70,11 @@ const lineUserId = process.env.LINE_USER_ID;
         //await page.evaluate(()=>document.querySelector('.quiz_gest_wrap').tap());
         await page.tap('.quiz_gest_wrap');
 
+
+        var done = 0;
+
         for (var i = 0; i < left_num; i++) {
+
             
             /* ---予想ロジックの実装--- */
             var num = await Math.floor(Math.random() * 3);
@@ -78,16 +82,19 @@ const lineUserId = process.env.LINE_USER_ID;
 
             await page.waitFor(1000);
 
-            await page.evaluate((num)=>document.querySelector('ul li:nth-child(' + (num+1).toString() + ') a.bar div.quiz_item').click(), num);
-            //await page.click('ul li:nth-child(' + (random+1).toString() + ') a.bar div.quiz_item');
+            if (page.$('li:nth-child(' + (num+1).toString() + ') .quiz_item') != null) {
+                await page.evaluate((num)=>document.querySelector('li:nth-child(' + (num+1).toString() + ') .quiz_item').click(), num);
+            }
 
             // OKをクリック
             await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-            await page.waitFor(1000);  
+            await page.waitFor(1000);
+
+            done++;
 
             if (i != left_num - 1) {
                 // 次の予想へ
-                await page.evaluate(()=>document.querySelector('a.btn_quiz_next.fadeOut').click());
+                await page.evaluate(()=>document.querySelector('.btn_quiz_next').click());
                 await page.waitFor(1000); 
             }
         }
@@ -106,7 +113,7 @@ const lineUserId = process.env.LINE_USER_ID;
             'messages': [
                 {
                     'type': 'text',
-                    'text': left_num + '個予想しといたで'
+                    'text': done + '個予想しといたで'
                 }           
             ]
         }
