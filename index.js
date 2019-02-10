@@ -48,7 +48,7 @@ const lineUserId = process.env.LINE_USER_ID;
     await page.waitFor(3000);
 
     // 未参加をクリック
-    var left_num = await page.$eval('.my_report li:nth-child(3) .num', item => {
+    var left_num = await page.$eval('.left .num', item => {
         return Number(item.textContent.trim());
     });
     console.log(left_num);
@@ -73,13 +73,13 @@ const lineUserId = process.env.LINE_USER_ID;
         for (var i = 0; i < left_num; i++) {
             
             /* ---予想ロジックの実装--- */
-            var choice_num = choice_num = await Math.floor(Math.random() * 3);
-            console.log(choice_num);
+            var num = await Math.floor(Math.random() * 3);
+            console.log(num);
 
             await page.waitFor(1000);            
 
             // 選択肢をクリック
-            await page.evaluate((choice_num)=>document.querySelector('ul li:nth-child(' + (choice_num+1).toString() + ') a.bar div.quiz_item').click(), choice_num);
+            await page.evaluate((num)=>document.querySelector('ul li:nth-child(' + (num+1).toString() + ') a.bar div.quiz_item').click(), num);
             //await page.click('ul li:nth-child(' + (random+1).toString() + ') a.bar div.quiz_item');
 
             // OKをクリック
@@ -117,7 +117,6 @@ const lineUserId = process.env.LINE_USER_ID;
     request.post(options, function(error, response, body) {
         console.log(response.statusCode);
     });
-
     
     await browser.close();
 })();
