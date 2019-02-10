@@ -83,6 +83,8 @@ const lineUserId = process.env.LINE_USER_ID;
                 return document.querySelector('ul li:nth-child(' + (selector+1).toString() + ') a.bar div.quiz_item');
             }, num);
 
+            console.log(choice);
+
             if (choice != null) {
                 await page.click(choice);
                 
