@@ -53,6 +53,8 @@ const lineUserId = process.env.LINE_USER_ID;
     });
     console.log(left_num);
 
+    var done = 0;
+    
     //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
     await page.click('.left .num');
 
@@ -69,9 +71,6 @@ const lineUserId = process.env.LINE_USER_ID;
         // 注意書き的なやつタップ
         //await page.evaluate(()=>document.querySelector('.quiz_gest_wrap').tap());
         await page.tap('.quiz_gest_wrap');
-
-
-        var done = 0;
 
         for (var i = 0; i < left_num; i++) {
 
