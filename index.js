@@ -76,13 +76,13 @@ const lineUserId = process.env.LINE_USER_ID;
 
             
             /* ---予想ロジックの実装--- */
-            var num = await Math.floor(Math.random() * 3);
+            var num = await Math.floor(Math.random() * 3) + 1;
             console.log(num);
 
             await page.waitFor(1000);
 
-            if (page.$('li:nth-child(' + (num+1).toString() + ') .quiz_item') != null) {
-                await page.evaluate((num)=>document.querySelector('li:nth-child(' + (num+1).toString() + ') .quiz_item').click(), num);
+            if (page.$('li:nth-child(' + num.toString() + ') .quiz_item') != null) {
+                await page.evaluate((num)=>document.querySelector('li:nth-child(' + num.toString() + ') .quiz_item').click(), num);
 
                 // OKをクリック
                 await page.evaluate(()=>document.querySelector('button.btn.type1').click());
