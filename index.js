@@ -83,13 +83,13 @@ const lineUserId = process.env.LINE_USER_ID;
 
             if (page.$('li:nth-child(' + (num+1).toString() + ') .quiz_item') != null) {
                 await page.evaluate((num)=>document.querySelector('li:nth-child(' + (num+1).toString() + ') .quiz_item').click(), num);
+
+                // OKをクリック
+                await page.evaluate(()=>document.querySelector('button.btn.type1').click());
+                await page.waitFor(1000);
+
+                done++;
             }
-
-            // OKをクリック
-            await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-            await page.waitFor(1000);
-
-            done++;
 
             if (i != left_num - 1) {
                 // 次の予想へ
