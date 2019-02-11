@@ -84,7 +84,7 @@ const lineUserId = process.env.LINE_USER_ID;
 
                 // OKをクリック
                 await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-                await page.waitFor(500);
+                await page.waitFor(1000);
 
                 done++;
             } catch (e) {
@@ -94,7 +94,7 @@ const lineUserId = process.env.LINE_USER_ID;
             if (i != left_num - 1) {
                 // 次の予想へ
                 await page.evaluate(()=>document.querySelector('.btn_quiz_next').click());
-                await page.waitFor(500); 
+                await page.waitFor(1000); 
             }
         }
     }
