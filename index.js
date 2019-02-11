@@ -55,8 +55,8 @@ const lineUserId = process.env.LINE_USER_ID;
 
     var done = 0;
     
-    //await page.evaluate(()=>document.querySelector('.my_report li:nth-child(3) .num').click());
-    await page.click('.left .num');
+    await page.evaluate(()=>document.querySelector('.left .num').click());
+    //await page.click('.left .num');
 
     await page.waitFor(3000);
 
