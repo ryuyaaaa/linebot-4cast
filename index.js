@@ -79,8 +79,6 @@ const lineUserId = process.env.LINE_USER_ID;
             var num = await Math.floor(Math.random() * 3) + 1;
             console.log(num);
 
-            await page.waitFor(1000);
-
             try {
                 await page.evaluate((num)=>document.querySelector('li:nth-child(' + num.toString() + ') .quiz_item').click(), num);
 
@@ -92,15 +90,6 @@ const lineUserId = process.env.LINE_USER_ID;
             } catch (e) {
                 console.log("choice is null.");
             }
-            // if (page.$('li:nth-child(' + num.toString() + ') .quiz_item') != null) {
-            //     await page.evaluate((num)=>document.querySelector('li:nth-child(' + num.toString() + ') .quiz_item').click(), num);
-
-            //     // OKをクリック
-            //     await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-            //     await page.waitFor(1000);
-
-            //     done++;
-            // }
 
             if (i != left_num - 1) {
                 // 次の予想へ
