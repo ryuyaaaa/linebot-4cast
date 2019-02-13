@@ -95,8 +95,8 @@ const lineUserId = process.env.LINE_USER_ID;
                     if (Number(highest_percent) > 70) {
 
                         // 一番目の選択肢の内容
-                        var choice_text = await page.$$eval('.bar .quiz_tit', list => {
-                            return list[0].textContent;
+                        var choice_text = await page.$eval('li:nth-child(1) .quiz_tit', item => {
+                            return item.textContent;
                         });
                         //var choice_text = await page.$$('.bar .quiz_tit')[0].textContent;
                         console.log(choice_text);
