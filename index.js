@@ -123,6 +123,9 @@ const lineUserId = process.env.LINE_USER_ID;
 
                         done++;
                     } else {
+
+                        console.log('ランダム');
+
                         // 上から３つランダム(1~3)
                         var num = await Math.floor(Math.random() * 3) + 1;
                         console.log(num);
@@ -130,8 +133,8 @@ const lineUserId = process.env.LINE_USER_ID;
                         await page.waitFor(400);
 
                         //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
-                        var choice_text = await page.$$eval('.bar .quiz_tit', list => {
-                            return list[num].textContent;
+                        var choice_text = await page.$eval('li:nth-child(' + num + ') .quiz_tit', item => {
+                            return item.textContent;
                         });
 
                         //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
