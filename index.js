@@ -78,6 +78,7 @@ const lineUserId = process.env.LINE_USER_ID;
             
             try {
                 var choice_num = await page.$$('.bar .quiz_tit').length;
+                await page.waitFor(200);
                 console.log('debug: choice_num = ' + choice_num);
 
                 if (choice_num >= 3) {
@@ -126,7 +127,7 @@ const lineUserId = process.env.LINE_USER_ID;
                             console.log(num);
 
                         }
-                        
+
                         // 選択肢をクリック
                         await page.evaluate((num)=>document.querySelector('li:nth-child(' + num.toString() + ') .quiz_item').click(), num);
 
