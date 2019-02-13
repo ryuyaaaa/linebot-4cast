@@ -130,8 +130,6 @@ const lineUserId = process.env.LINE_USER_ID;
                         var num = await Math.floor(Math.random() * 3) + 1;
                         console.log(num);
 
-                        await page.waitFor(400);
-
                         //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
                         var choice_text = await page.$eval('li:nth-child(' + num + ') .quiz_tit', item => {
                             return item.textContent;
