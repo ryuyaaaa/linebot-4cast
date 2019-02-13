@@ -80,17 +80,25 @@ const lineUserId = process.env.LINE_USER_ID;
                 var choice_num = await page.$$eval('.bar .quiz_tit', list => {
                     return list.length;
                 });
-                await page.waitFor(300);
+                await page.waitFor(200);
                 console.log('debug: choice_num = ' + choice_num);
 
                 if (choice_num >= 3) {
-                    var highest_percent = await page.$$('.bar .pct')[0].textContent.replace('%', '');
+
+                    var highest_percent = await page.$$eval('.bar .pct', list => {
+                        return list[0].textContent.replace('%', '');
+                    });
+                    
+                    //var highest_percent = await page.$$('.bar .pct')[0].textContent.replace('%', '');
                     console.log('debug: highest_percent = ' + highest_percent);
 
                     if (Number(highest_percent) > 70) {
 
                         // 一番目の選択肢の内容
-                        var choice_text = await page.$$('.bar .quiz_tit')[0].textContent;
+                        var choice_text = await page.$$eval('.bar .quiz_tit', list => {
+                            return list[0].textContent;
+                        });
+                        //var choice_text = await page.$$('.bar .quiz_tit')[0].textContent;
                         console.log(choice_text);
 
                         if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1)) {
@@ -119,7 +127,11 @@ const lineUserId = process.env.LINE_USER_ID;
                         var num = await Math.floor(Math.random() * 3) + 1;
                         console.log(num);
 
-                        var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
+                        var choice_text = await page.$$eval('.bar .quiz_tit', list => {
+                            return list[num].textContent;
+                        });
+
+                        //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
                         console.log(choice_text);
 
                         if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1)) {
