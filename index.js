@@ -77,8 +77,9 @@ const lineUserId = process.env.LINE_USER_ID;
         for (var i = 0; i < left_num; i++) {
             
             try {
-                var choice_num = await page.$$('.bar .quiz_tit').length;
-                await page.waitFor(200);
+                var choice_num = await page.$eval('.left .num', list => {
+                    return list.length;
+                });
                 console.log('debug: choice_num = ' + choice_num);
 
                 if (choice_num >= 3) {
