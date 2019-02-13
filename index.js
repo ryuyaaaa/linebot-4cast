@@ -80,6 +80,7 @@ const lineUserId = process.env.LINE_USER_ID;
                 var choice_num = await page.$eval('.bar .quiz_tit', list => {
                     return list.length;
                 });
+                await page.waitFor(300);
                 console.log('debug: choice_num = ' + choice_num);
 
                 if (choice_num >= 3) {
