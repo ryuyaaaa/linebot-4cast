@@ -101,7 +101,7 @@ const lineUserId = process.env.LINE_USER_ID;
                         //var choice_text = await page.$$('.bar .quiz_tit')[0].textContent;
                         console.log(choice_text);
 
-                        if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1)) {
+                        if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1 || choice_text.indexOf('無し') != -1 || choice_text.indexOf('無い') != -1)) {
                             
                             console.log('正解無しのほう');
                             // 2 or 3
@@ -138,7 +138,7 @@ const lineUserId = process.env.LINE_USER_ID;
                         //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
                         console.log(choice_text);
 
-                        if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1)) {
+                        if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1 || choice_text.indexOf('無し') != -1 || choice_text.indexOf('無い') != -1)) {
                             
                             console.log('正解無しのほう');
                             num = (num == 3) ? 1 : num+1;
