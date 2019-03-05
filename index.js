@@ -92,7 +92,7 @@ const lineUserId = process.env.LINE_USER_ID;
                     //var highest_percent = await page.$$('.bar .pct')[0].textContent.replace('%', '');
                     console.log('debug: highest_percent = ' + highest_percent);
 
-                    if (Number(highest_percent) > 70) {
+                    if (Number(highest_percent) > 65) {
 
                         // 一番目の選択肢の内容
                         var choice_text = await page.$eval('li:nth-child(1) .quiz_tit', item => {
@@ -138,7 +138,7 @@ const lineUserId = process.env.LINE_USER_ID;
                         //var choice_text = await page.$$('.bar .quiz_tit')[num].textContent;
                         console.log(choice_text);
 
-                        if (choice_text.indexOf('正解') != -1 && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1 || choice_text.indexOf('無し') != -1 || choice_text.indexOf('無い') != -1)) {
+                        if ((choice_text.indexOf('この中に') != -1 || choice_text.indexOf('正解') != -1) && (choice_text.indexOf('ない') != -1 || choice_text.indexOf('なし') != -1 || choice_text.indexOf('無し') != -1 || choice_text.indexOf('無い') != -1)) {
                             
                             console.log('正解無しのほう');
                             num = (num == 3) ? 1 : num+1;
@@ -169,30 +169,6 @@ const lineUserId = process.env.LINE_USER_ID;
                 
                 console.log('********************************************');
             }
-            
-            /* ---予想ロジックの実装--- */
-            /*
-            var num = await Math.floor(Math.random() * 3) + 1;
-            console.log(num);
-
-            try {
-                await page.evaluate((num)=>document.querySelector('li:nth-child(' + num.toString() + ') .quiz_item').click(), num);
-
-                // OKをクリック
-                await page.evaluate(()=>document.querySelector('button.btn.type1').click());
-                await page.waitFor(1000);
-
-                done++;
-            } catch (e) {
-                console.log("choice is null.");
-            }
-
-            if (i != left_num - 1) {
-                // 次の予想へ
-                await page.evaluate(()=>document.querySelector('.btn_quiz_next').click());
-                await page.waitFor(1000); 
-            }
-            */
         }
     }
 
